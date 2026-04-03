@@ -10,20 +10,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
           Hàng cao cấp <br />
           Rẻ vô địch
         </h1>
-        <div class="position-relative mx-auto">
-          <input
-            class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-            type="number"
-            placeholder="Search"
-          />
-          <button
-            type="submit"
-            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-            style="top: 0; right: 25%"
-          >
-            Submit Now
-          </button>
-        </div>
+        
       </div>
       <div class="col-md-12 col-lg-5">
         <div
