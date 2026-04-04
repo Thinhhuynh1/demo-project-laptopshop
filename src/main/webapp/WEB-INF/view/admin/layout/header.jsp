@@ -35,7 +35,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <li><a class="dropdown-item" href="#!">Settings</a></li>
         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
         <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
+        <li>
+          <form method="post" action="/logout">
+            <input type="hidden" name="${_csrf.parameterName}" 
+                value="${_csrf.token}"/>
+              <button class="dropdown-item" >Đăng xuất</button>
+          </form>
+        </li>
       </ul>
     </li>
   </ul>
