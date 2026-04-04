@@ -53,6 +53,8 @@ uri="http://www.springframework.org/tags/form"%>
                         />
                         <label>Password</label>
                       </div>
+                      
+                      <!-- lấy token -->
                       <div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                       </div>
