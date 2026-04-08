@@ -9,11 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import vn.thinhhuynh.laptopshop.service.validator.StrongPassword;
 
 @Entity // Danh dau, noi voi 1 bang trong DB
 @Table(name = "users")
@@ -50,6 +50,9 @@ public class User {
     // User one -> to many - order
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    @OneToOne(mappedBy = "cart")
+    private User user;
 
     public long getId() {
         return id;
