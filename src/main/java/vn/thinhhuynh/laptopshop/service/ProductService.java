@@ -1,7 +1,6 @@
 package vn.thinhhuynh.laptopshop.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -84,7 +83,6 @@ public class ProductService {
 
                 } else {
                     cartDetail.setQuantity(cartDetail.getQuantity() + 1);
-                    cartDetail.setPrice(product.getPrice() * cartDetail.getQuantity());
                     this.cartDetailRepository.save(cartDetail);
                 }
 
@@ -101,4 +99,7 @@ public class ProductService {
         // lưu cart_detail
     }
 
+    public Cart fetchByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
 }
