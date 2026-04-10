@@ -22,8 +22,7 @@
         padding: 24px;
         font-family: Arial, Helvetica, sans-serif;
         color: #1f2937;
-        background:
-          radial-gradient(circle at top, #fef3c7 0, #fff7ed 30%, #f8fafc 100%);
+        
       }
 
       .page {

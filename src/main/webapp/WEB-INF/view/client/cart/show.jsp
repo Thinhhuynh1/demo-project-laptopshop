@@ -13,7 +13,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet" />
 
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
@@ -31,8 +31,8 @@
   </head>
 
 
-
-    <jsp:include page="../layout/header.jsp" />
+    <body>
+        <jsp:include page="../layout/header.jsp" />
 
         <!-- Cart Page Start -->
         <div class="container-fluid py-5">
@@ -49,6 +49,7 @@
                             <th scope="col">Handle</th>
                           </tr>
                         </thead>
+
                         <tbody>
                             <c:forEach var="cartDetail" items="${cartDetails}">
                                 <tr>
@@ -80,8 +81,11 @@
                                                 </button>
                                             </div>
                                             <input type="text" 
-                                            class="form-control form-control-sm text-center border-0" 
-                                            value="${cartDetail.quantity}">
+                                                class="form-control form-control-sm text-center border-0" 
+                                                value="${cartDetail.quantity}"
+                                                data-cart-detail-id = "${cartDetail.id}"
+                                                data-cart-detail-price="${cartDetail.price}">
+
                                             <div class="input-group-btn">
                                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                     <i class="fa fa-plus"></i>
@@ -90,7 +94,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="mb-0 mt-4">
+                                        <p class="mb-0 mt-4" data-cart-detail-id = "${cartDetail.id}">
                                             <fmt:formatNumber type="number" 
                                                 value="${cartDetail.price*cartDetail.quantity}"/> đ
                                         </p>
@@ -108,53 +112,65 @@
                     </table>
                 </div>
 
-                <div class="mt-5 row g-4 justify-content-start">
-                    <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4" style="width: 700px;">
-                        <div class="bg-light rounded">
-                            <div class="p-4">
-                                <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Đơn hàng</span></h1>
-                                <div class="d-flex justify-content-between mb-4">
-                                    <h5 class="mb-0 me-4">Tạm tính:</h5>
-                                    <p class="mb-0">
-                                        <fmt:formatNumber type="number" 
-                                            value="${totalPrice}"/> đ
-                                    </p>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mb-0 me-4">Phí vận chuyển</h5>
-                                    <div class="">
-                                        <p class="mb-0">0 đ</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
-                                <p class="mb-0 pe-4">
-                                    <fmt:formatNumber type="number" 
-                                            value="${totalPrice}"/>đ
-                                </p>
-                            </div>
-                            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Thanh toán</button>
+                <c:if test="${empty cartDetails}">
+                    <div style="padding: 80px 62px;;">
+                        <div style="display: flex;flex-direction: column; justify-content: center; align-items: center;">
+                            <h2 >Giỏ hàng trống</h2>
+                            <a href="/" class="btn btn-primary">Xem sản phẩm</a>
                         </div>
                     </div>
-                </div>
+                </c:if>
+
+                <c:if test="${not empty cartDetails}">
+                    <div class="mt-5 row g-4 justify-content-start">
+                        <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4" style="width: 700px;">
+                            <div class="bg-light rounded">
+                                <div class="p-4">
+                                    <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Đơn hàng</span></h1>
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="mb-0 me-4">Tạm tính:</h5>
+                                        <p class="mb-0"  data-cart-total-price="${totalPrice}">
+                                            <fmt:formatNumber type="number" value="${totalPrice}"/> đ
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="mb-0 me-4">Phí vận chuyển</h5>
+                                        <div class="">
+                                            <p class="mb-0">
+                                                0 đ
+                                            </p>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                                <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                                    <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
+                                    <p class="mb-0 pe-4" data-cart-total-price="${totalPrice}">
+                                        <fmt:formatNumber type="number" 
+                                                value="${totalPrice}"/> đ
+                                    </p>
+                                </div>
+                                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Thanh toán</button>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
         <!-- Cart Page End -->
 
         <jsp:include page="../layout/footer.jsp"/>
         
-    <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="client/lib/easing/easing.min.js"></script>
-    <script src="client/lib/waypoints/waypoints.min.js"></script>
-    <script src="client/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="client/lib/owlcarousel/owl.carousel.min.js"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="client/lib/easing/easing.min.js"></script>
+        <script src="client/lib/waypoints/waypoints.min.js"></script>
+        <script src="client/lib/lightbox/js/lightbox.min.js"></script>
+        <script src="client/lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="client/js/main.js"></script>
+        <!-- Template Javascript -->
+        <script src="client/js/main.js"></script>
     </body>
 
 </html>
