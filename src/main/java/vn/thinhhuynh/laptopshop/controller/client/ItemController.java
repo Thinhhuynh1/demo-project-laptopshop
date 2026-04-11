@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import vn.thinhhuynh.laptopshop.domain.Cart;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ItemController {
@@ -67,6 +69,15 @@ public class ItemController {
         model.addAttribute("totalPrice", totalPrice);
 
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String postMethodName(@PathVariable long id, HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        this.productService.handleRemoveCartDetail(id, session);
+        return "redirect:/cart";
+
     }
 
 }

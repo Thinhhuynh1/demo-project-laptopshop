@@ -1,6 +1,7 @@
 package vn.thinhhuynh.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,45 @@ public class ProductService {
         // lưu cart_detail
     }
 
+    public void handleRemoveCartDetail(long cartDetailId, HttpSession session) {
+        Optional<CartDetail> cartDetaiOptional = this.cartDetailRepository.findById(cartDetailId);
+        if (cartDetaiOptional.isPresent()) {
+            CartDetail cartDetail = cartDetaiOptional.get();
+
+            Cart currentCart = cartDetail.getCart();
+            int sumCartDetail = (int) cartDetail.getQuantity();
+            int sum = currentCart.getSum();
+
+            this.deleteCartProduct(cartDetailId);
+
+            sum -= sumCartDetail;
+
+            if (sum < 1) {
+                currentCart.setSum(0);
+                this.deleteCart(currentCart.getId());
+            } else {
+                currentCart.setSum(sum);
+                this.saveCart(currentCart);
+            }
+            session.setAttribute("sum", sum);
+        }
+
+    }
+
     public Cart fetchByUser(User user) {
         return this.cartRepository.findByUser(user);
     }
+
+    public Cart saveCart(Cart cart) {
+        return this.cartRepository.save(cart);
+    }
+
+    public void deleteCart(long id) {
+        this.cartRepository.deleteById(id);
+    }
+
+    public void deleteCartProduct(long id) {
+        this.cartDetailRepository.deleteById(id);
+    }
+
 }

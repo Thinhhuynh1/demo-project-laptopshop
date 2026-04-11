@@ -41,21 +41,20 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                   <div class="container mt-5">
             <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                    <form method="post" action="/admin/product/delete" modelAttribute="newProduct">
+                    <form:form method="post" action="/admin/product/delete" modelAttribute="newProduct">
                         <h1>Delete the product with id = ${id}</h1>
                         <hr />
                         <div class="alert alert-danger">
-                Are you sure to delete this product?
+                          Are you sure to delete this product?
                         </div>
-                        <form:form method="post" modelAttribute="newProduct" action="/admin/product/delete">
+                        
                             <div class="md-3" style="display: none">
                                 <label class="form-label">Id:</label>
                                 <form:input type="text" class="form-control" path="id" />
                             </div>
 
                             <button class="btn btn-danger">Confirm</button>
-                        </form:form>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

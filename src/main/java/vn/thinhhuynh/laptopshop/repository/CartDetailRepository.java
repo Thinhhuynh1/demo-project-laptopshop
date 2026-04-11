@@ -8,4 +8,5 @@ import vn.thinhhuynh.laptopshop.domain.Product;
 
 public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
     CartDetail findByCartAndProduct(Cart cart, Product product);
+
 }
