@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import vn.thinhhuynh.laptopshop.domain.Cart;
 import vn.thinhhuynh.laptopshop.domain.CartDetail;
+import vn.thinhhuynh.laptopshop.domain.Order;
+import vn.thinhhuynh.laptopshop.domain.OrderDetail;
 import vn.thinhhuynh.laptopshop.domain.Product;
 import vn.thinhhuynh.laptopshop.domain.User;
+import vn.thinhhuynh.laptopshop.repository.OrderDetailRepository;
+import vn.thinhhuynh.laptopshop.repository.OrderRepository;
 import vn.thinhhuynh.laptopshop.service.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,10 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ItemController {
 
+    private final OrderRepository orderRepository;
     private final ProductService productService;
+    private final OrderDetailRepository orderDetailRepository;
 
-    public ItemController(ProductService productService) {
+    public ItemController(
+            ProductService productService,
+            OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository) {
         this.productService = productService;
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     @GetMapping("/product/{id}")
@@ -129,6 +140,20 @@ public class ItemController {
         this.productService.handlePlaceOrder(currentUser, session, receiverName, receiverAddress, receiverPhone);
 
         return "client/cart/thankyou";
+    }
+
+    @GetMapping("/order-history")
+    public String getMethodName(Model model, HttpServletRequest request) {
+
+        User currentUser = new User();
+        HttpSession session = request.getSession();
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        List<Order> orders = this.orderRepository.findByUserId(id);
+        model.addAttribute("orders", orders);
+
+        return "client/homepage/order-history";
     }
 
 }

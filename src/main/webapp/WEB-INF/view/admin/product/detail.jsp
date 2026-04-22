@@ -53,35 +53,31 @@
 
                                 <hr />
 
-                                <div class="card" style="width: 60%;">
-                                    <c:if test="${not empty product.image}">
-                                        <img class="card-img-top" alt="product image" src="/images/product/${product.image}">
-                                        </c:if>
-                                        <div class="card-header"> Product information</div>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">ID: ${product.id}</li>
-                                            <li class="list-group-item">Name: ${product.name}</li>
-                                            <li class="list-group-item">Price: ${product.price}</li>
-                                            <li class="list-group-item">Detail description: ${product.detailDesc}</li>
-                                            <li class="list-group-item">Short description: ${product.shortDesc}</li>
-                                            <li class="list-group-item">Quantity: ${product.quantity}</li>
-                                            <li class="list-group-item">Factory: ${product.factory}</li>
-                                            <li class="list-group-item">Target: ${product.target}</li>
-                                        </ul>
-                                    </div>
-                                    <br/>
-                                    <a href="/admin/product" class="btn btn-secondary">Back</a>
-                                </div>
-                                <br/>
-                                
+                        <div class="card" style="width: 60%;">
+                            <c:if test="${not empty product.image}">
+                                <img class="card-img-top" alt="product image" src="/images/product/${product.image}">
+                            </c:if>
+                            <div class="card-header"> Product information</div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">ID: ${product.id}</li>
+                                    <li class="list-group-item">Name: ${product.name}</li>
+                                    <li class="list-group-item">Price: ${product.price}</li>
+                                    <li class="list-group-item">Detail description: ${product.detailDesc}</li>
+                                    <li class="list-group-item">Short description: ${product.shortDesc}</li>
+                                    <li class="list-group-item">Quantity: ${product.quantity}</li>
+                                    <li class="list-group-item">Factory: ${product.factory}</li>
+                                    <li class="list-group-item">Target: ${product.target}</li>
+                                </ul>
                             </div>
-
-
-                        </main>
-                        <jsp:include page="../layout/footer.jsp" />
+                            <br/>
+                            <a href="/admin/product" class="btn btn-secondary">Back</a>
+                        </div>
                     </div>
-                </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-                <script src="/js/scripts.js"></script>
-            </body>
-        </html>
+                </main>
+                <jsp:include page="../layout/footer.jsp" />
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>

@@ -2,6 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -51,7 +52,7 @@
                         </thead>
 
                         <tbody>
-                            <c:forEach var="cartDetail" items="${cartDetails}">
+                            <c:forEach var="cartDetail" items="${cartDetails}" varStatus="status">
                                 <tr>
                                     <th scope="row">
                                         <div class="d-flex align-items-center">
@@ -159,31 +160,14 @@
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
                                     <div style="display: none;">
                                         <c:forEach var="cartDetail" items="${cart.cartDetails}" varStatus="status">
-                                            <div class="mb-3">
-                                                <div class="form-group">
-                                                    <label>Id:</label>
-                                                    <input class="form-control" type="text"
-                                                        value="${cartDetail.id}"
-                                                        path="cartDetails[${status.index}].id"/>
-                                                    
-                                                    
-                                                </div>
-            
-                                                <div class="form-group">
-                                                    <label>Quantity:</label>
-                                                    <input class="form-control" type="text"
-                                                        value="${cartDetail.quantity}"
-                                                        path="cartDetails[${status.index}].quantity"/>
-                                                    
-                                                </div>
-                                            </div>
+                                            <form:hidden path="cartDetails[${status.index}].id" />
+                                            <form:hidden path="cartDetails[${status.index}].quantity" />
                                         </c:forEach>
                                     </div>
+                                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">
+                                        Thanh toán
+                                    </button>
                                 </form:form>
-                                
-                                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">
-                                    <a href="/checkout">Thanh toán</a>
-                                </button>
                                 
                                
                             </div>

@@ -111,9 +111,9 @@ public class ProductService {
     }
 
     public void handleRemoveCartDetail(long cartDetailId, HttpSession session) {
-        Optional<CartDetail> cartDetaiOptional = this.cartDetailRepository.findById(cartDetailId);
-        if (cartDetaiOptional.isPresent()) {
-            CartDetail cartDetail = cartDetaiOptional.get();
+        Optional<CartDetail> cartDetailOptional = this.cartDetailRepository.findById(cartDetailId);
+        if (cartDetailOptional.isPresent()) {
+            CartDetail cartDetail = cartDetailOptional.get();
 
             Cart currentCart = cartDetail.getCart();
             int sumCartDetail = (int) cartDetail.getQuantity();
